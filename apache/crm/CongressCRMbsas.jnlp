@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="6.0+" codebase="http://crm.congressrental.com:8888/crm" href="CongressCRMbsas.jnlp">
+	<information>
+		<title>CRM Congress Rental</title>
+		<vendor>Congress Net Argentina S.A</vendor>
+		<icon href="images/java_logo.jpg"/>
+    	<icon kind="splash" href="images/splash.gif"/>
+	</information>
+	<resources>
+		<jar href="CRMClient.jar"/>
+		<jar href="jaxr-api.jar"/>
+		<jar href="activation.jar"/>
+		<jar href="apache_soap-2_3_1.jar"/>
+		<jar href="commons-discovery.jar"/>
+		<jar href="commons-lang-2.0.jar"/>
+		<jar href="commons-logging.jar"/>
+		<jar href="jaxrpc-1_1.jar"/>
+		<jar href="jaxrpc-api.jar"/>		
+		<jar href="optional-1_5_1.jar"/>
+		<jar href="qname-from-wsdl4j-20021124.jar"/>
+		<jar href="soaprmi-1_1.jar"/>
+		<jar href="wsif.jar"/>
+		<jar href="xercesImpl-2_2_1.jar"/>
+		<jar href="xmlParserAPIs-2_2_1.jar"/>
+		<jar href="wsdl4j.jar"/>
+		<jar href="mail.jar"/>
+		<jar href="libCRM.jar"/>
+		<jar href="axis.jar"/>
+		<jar href="xml-api.jar"/>
+		<jar href="saaj-api.jar"/>
+		<jar href="log4j-1.2.8.jar"/>
+		<jar href="commons-beanutils-1.5.jar"/>
+		<jar href="commons-digester-1.7.jar"/>
+		<jar href="commons-javaflow-20060411.jar"/>
+		<jar href="commons-lang-2.1.jar"/>
+		<jar href="commons-logging-api-1.0.2.jar"/>
+		<jar href="itext-1.3.1.jar"/>
+		<jar href="jasperreports-1.3.4.jar"/>
+		<jar href="xercesImpl.jar"/>
+		<jar href="xml-apis.jar"/>
+		<jar href="axis-1_0.jar"/>
+		<jar href="axis-1_0-ant.jar"/>
+		<jar href="jaxrpc-impl.jar"/>
+		<jar href="jcckit.jar"/>
+		<jar href="commons-collections.jar"/>
+		<jar href="jfreechart-1.0.0.jar"/>
+		<jar href="swing-layout-1.0.jar"/>
+		<jar href="jcommon-1.0.0.jar"/>
+		<jar href="jasperreports-extensions-1.3.1.jar"/>
+		<jar href="jdnc-0_7-all.jar"/>
+		<jar href="jdnc-runner.jar"/>
+		<jar href="jxl.jar"/>
+		<jar href="jdom.jar"/>
+		<jar href="poi-3.0-rc4-20070503.jar"/>
+		<jar href="poi-contrib-3.0-rc4-20070503.jar"/>
+		<jar href="poi-scratchpad-3.0-rc4-20070503.jar"/>
+		<j2se version="1.6+" initial-heap-size="512m" max-heap-size="512m"
+		href="http://java.sun.com/products/autodl/j2se"/>
+	</resources>
+	<security>
+	    <all-permissions/>
+  	</security>
+	<application-desc main-class="crm.gui.Main"/>
+</jnlp>

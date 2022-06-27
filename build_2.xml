@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project name="Congress CRM Client" basedir="." default="create_stub">
+    <description>
+        Web service that manages transactions     
+    </description>
+
+    <property file="build.properties" />
+	
+    <path id="class.path">
+        <fileset dir="../services/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+	<!--
+	<property name="execdir" location="src/crm/services/exec"/>
+	<property name="sqldir"  location="src/crm/services/sql"/>
+	<property name="seidir"  location="src/crm/services/sei"/>
+	
+    <property name="build.dir" value="bin" />
+    <property name="build.classes.dir" location="${build.dir}/classes" />
+    <property name="build.lib.dir" location="${build.dir}/lib" />
+
+    <property name="build.jar.dir" value="${build.dir}/congress.jar" />
+    <property name="build.deploy.dir" location="${build.dir}/deploy" />
+
+    <property name="build.java.gen-src.dir" location="${build.dir}/gen-src" />
+    <property name="build.metainf.dir" location="${build.classes.dir}/META-INF" />
+    <property name="build.java.src.dir" location="${build.dir}/src" />
+	-->
+	
+    <property name="build.dir" value="${proyect.services.home}/bin" />
+    <property name="wsconfig.url" location="${proyect.gui.home}/xml/config-wsdl.xml" />
+	
+	<!--property name="proyect.services.home" location="/home/hernux/works/services" />
+
+	<property name="webapp.base" location="${proyect.services.home}/web" />
+	
+	<property name="dist.dir" value="${proyect.services.home}/dist" />
+	<property name="deploy.dir" value="/home/hernux/usr/jboss-4.0.3SP1/server/default/deploy" /-->
+	
+	<!--taskdef name="wscompile" classname="com.sun.xml.rpc.tools.ant.Wscompile">
+    	<classpath refid="class.path"/>
+	</taskdef-->
+	
+	<!--target name="init">
+		<mkdir dir="${webapp.base}/WEB-INF/classes" />
+		<mkdir dir="${webapp.base}/WEB-INF/wsdl" />
+		<mkdir dir="${dist.dir}" />
+	</target-->
+
+    <target name="create_stub">
+		<!--delete>
+			<fileset dir="src/crm/client/staticstub">
+			    <include name="*"/>
+			</fileset>
+		</delete-->
+		
+		<!--exec executable="/home/hernux/usr/sun-appserver/bin/wscompile">
+	        <arg line ="-verbose -cp ${build.dir} -gen:client -f:rpcliteral -d src -keep ${wsconfig.url}"/>
+		</exec-->
+        <exec executable="${wscompile.path}">
+            <arg line ="-verbose -cp ${build.dir}${cp.separator}${proyect.libraries.home}${file.separator}build${cp.separator}${proyect.services.home}${file.separator}lib${file.separator}axis.jar  -gen:client  -d ${proyect.gui.home}${file.separator}src -keep ${wsconfig.url}"/>
+        </exec>
+		
+	    <!--wscompile
+	        mapping="web/ServerTransactionManager/WEB-INF/mapping.xml"
+	        server="true"
+	    	xPrintStackTrace="true"
+	    	verbose="true"
+	        base="web/ServerTransactionManager/WEB-INF/classes"
+	        nonClassDir="/home/hernux/works/services/web/ServerTransactionManager/WEB-INF/wsdl"
+	        config="/home/hernux/works/services/xml/ServerTransactionManager/config.xml">
+	        <classpath refid="class.path"/>
+	        <classpath path="web/ServerTransactionManager/WEB-INF/classes" />
+	    	<classpath path="/home/hernux/usr/jdk1.5.0_04/lib/tools.jar" />
+	    </wscompile-->  
+    </target>
+	
+    <target name="dist" description="create the distribution">
+        <mkdir dir="${proyect.gui.home}/dist"/>
+        <jar jarfile="${proyect.gui.home}/dist/CRM3.0.jar">
+            <fileset dir="${proyect.gui.home}/bin">
+                <include name="**/*.class"/>
+            </fileset>
+            <fileset dir="${proyect.gui.home}/src">
+                <include name="**/*.jasper"/>
+            </fileset>
+            <fileset dir="${proyect.services.home}/build">
+                <include name="crm/services/sei/*.class"/>
+            </fileset>
+            <fileset dir="${proyect.services.home}/build">
+                <include name="crm/services/wsdl2/sei/*.class"/>
+            </fileset>
+            <fileset dir="${proyect.services.home}/build">
+                <include name="crm/services/report/sei/*.class"/>
+            </fileset>
+            <fileset dir="${proyect.gui.home}/src">
+                <include name="**/*.properties"/>
+            </fileset>
+            <fileset dir="${proyect.gui.home}/src">
+                <include name="**/*.gif"/>
+            </fileset>
+            <fileset dir="${proyect.gui.home}/src">
+                <include name="**/*.png"/>
+            </fileset>
+            <fileset dir="${proyect.gui.home}/src">
+                <include name="**/*.jpg"/>
+            </fileset>
+        </jar>
+    </target>
+	
+    <target name="apache" depends="dist" description="create apache distribution JWS">
+
+        <mkdir dir="apache/crm"/>
+        <copy todir="apache/crm" overwrite="yes">
+            <fileset dir="lib" includes="**/*.jar"/>
+            <fileset dir="dist" includes="**/*.jar"/>
+        </copy>
+
+        <copy todir="apache/crm" overwrite="yes">
+            <fileset dir="jnlp"/>
+        </copy>
+
+        <copy todir="apache/crm" overwrite="yes">
+            <fileset dir="${proyect.libraries.home}/dist">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+        <signjar alias="Congress" storepass="congress" keystore="apache/crm/.keystore">
+            <fileset dir="apache/crm" includes="**/*.jar"/>
+        </signjar>
+        
+    </target>
+
+    <target name="apache_install_production" depends="apache"
+			  	description="installs apache distribution in Baires server pc">
+        <ftp verbose= "yes" passive= "yes" depends= "yes"
+			remotedir="/htdocs/stock" server="crm.congressrental.com"
+			userid="saciar" password="itsupport789">
+            <fileset dir="apache/crm"/>
+        </ftp>
+
+    </target>
+
+    <target name="apache_install_solo_CRM" depends="apache"
+		  	description="installs apache distribution in server pc">
+        <ftp verbose= "yes" passive= "yes" depends= "yes"
+	  				remotedir="/htdocs/stock" server="crm.congressrental.com"
+	  				userid="saciar" password="itsupport789">
+            <fileset dir="apache/crm" includes="**/CRM3.0.jar"/>
+        </ftp>
+    </target>
+
+    <target name="clean"
+	        description="clean up" >
+	    <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>

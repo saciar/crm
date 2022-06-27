@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="remito_equipos" language="groovy" columnCount="2" printOrder="Horizontal" pageWidth="555" pageHeight="802" columnWidth="277" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="80541738-5c5c-4b5c-a4d3-57876568ebcc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codEquipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="eq_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a4411eb3-ce08-47c4-90ce-b4d4133e0fb2" x="63" y="0" width="211" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eq_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="446cd43f-6d16-401d-86c0-a2fb0f8b2bbe" x="0" y="0" width="63" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codEquipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
